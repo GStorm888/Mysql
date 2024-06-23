@@ -1,4 +1,4 @@
-from data_base import Database
+from Database.data_base import Database
 
 class Books:
 
@@ -9,9 +9,10 @@ class Books:
         return Database.cursor().fetchone()
     
     @staticmethod
-    def get_all():
-        stmt = "SELECT * FROM Books;"
-        Database.cursor().execute(stmt)
+    def get_all(order_col: str, order_acending: bool):
+        order = "ASC" if order_acending else "DESC"
+        stmt = f"SELECT * FROM Books ORDER BY {order_col} {order};"
+        Database.cursor().execute(stmt, [])
         return Database.cursor().fetchall()
     
     @staticmethod
@@ -26,3 +27,11 @@ class Books:
         Database.cursor().execute(stmt, [autor])
         return Database.cursor().fetchall()
     
+    @staticmethod
+    def get_column_names():
+        stmt = "SHOW COLUMNS FROM Books"
+        Database.cursor().execute(stmt, [])
+        names = []
+        for row in Database.cursor().fetchall():
+            names.append(row[0])
+        return names

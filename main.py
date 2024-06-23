@@ -1,5 +1,9 @@
 import pygame
 import sys
+from Table.row import Row
+from Table.cell import Cell
+from Table.table import Table
+from table_seeder import TableSeeder
 
 pygame.init()
 
@@ -13,9 +17,21 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    cell = Cell(100, 100, 100, "lh", 30)
+    # cell1_1 = Cell(188, "10", 100)
+    # cell1_2 = Cell(188, "11", 100)
+    # row1 = Row([cell1_1, cell1_2])
+    # row1.draw(0, 0, screen)
+    # cell2_1 = Cell(188, "100", 100)
+    # cell2_2 = Cell(188, "101", 100)
+    # row2 = Row([cell2_1, cell2_2])
+    # row1.draw(0, 0, screen)
 
+    seeder = TableSeeder() 
+    table = seeder.generate_table("date_realise", False)
+
+    table.draw(0, 0, screen)
     pygame.display.flip()
+
 
 pygame.quit()
 sys.exit()
